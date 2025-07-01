@@ -15,23 +15,18 @@ class TableLoader:
     def load_table(self, config: TableConfig) -> int:
         logger.info(f"Начата загрузка {config.name}")
         
-        # Чтение CSV
         df = self.csv_reader.read(config.file_path)
         logger.info(f"Прочитано {len(df)} строк из {config.name}")
         
-        # Трансформация данных
         df = Helper.transform_dataframe(df, config.date_columns)
         
-        # Применение кастомной трансформации если есть
         if config.custom_transform:
             df = config.custom_transform(df)
         
-        # Очистка таблицы если нужно
         if config.clear_before_load:
             self.db.execute(f"DELETE FROM ds.\"{config.table_name}\"")
             logger.info(f"Таблица {config.table_name} очищена")
         
-        # Подробная диагностика данных для MD_CURRENCY_D
         if config.name == "MD_CURRENCY_D":
             logger.warning(f"Колонки DataFrame: {list(df.columns)}")
             for col in ['CURRENCY_CODE', 'CODE_ISO_CHAR']:
@@ -40,15 +35,18 @@ class TableLoader:
                     for val in df[col].unique():
                         logger.warning(f"'{val}' (длина: {len(str(val))})")
         
-        # Определение колонок для INSERT
         columns = list(df.columns)
         placeholders = ', '.join(['%s'] * len(columns))
         column_names = ', '.join([col.lower() for col in columns])
         
-        # Создание SQL запроса
         if config.conflict_columns:
             conflict_columns_str = ', '.join([col for col in config.conflict_columns])
-            conflict_clause = f"ON CONFLICT ({conflict_columns_str}) DO NOTHING"
+            update_columns = [col for col in columns if col not in config.conflict_columns]
+            if update_columns:
+                set_clause = ', '.join([f"{col.lower()} = EXCLUDED.{col.lower()}" for col in update_columns])
+                conflict_clause = f"ON CONFLICT ({conflict_columns_str}) DO UPDATE SET {set_clause}"
+            else:
+                conflict_clause = f"ON CONFLICT ({conflict_columns_str}) DO NOTHING"
         else:
             conflict_clause = ""
         insert_sql = f"""
@@ -69,7 +67,7 @@ class TableLoader:
                         values.append(value)
                     else:
                         values.append(str(value))
-                # Подробная диагностика длинных значений
+
                 if config.name == "MD_CURRENCY_D":
                     for col, val in zip(columns, values):
                         if col in ['CURRENCY_CODE', 'CODE_ISO_CHAR'] and isinstance(val, str) and len(val) > 3:

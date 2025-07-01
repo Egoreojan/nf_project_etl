@@ -14,3 +14,7 @@ docker compose up -d --build
 - Python
 - PostgreSQL
 - Airflow
+
+[Ссылка на видео](https://disk.yandex.ru/i/qnzUkkgsK8BWaw)
+
+Простите за фоновый шум =(
