@@ -1,0 +1,12 @@
+CREATE SCHEMA IF NOT EXISTS LOGS;
+
+CREATE TABLE LOGS.etl_log (
+    id SERIAL PRIMARY KEY,
+    process_name TEXT NOT NULL,
+    status TEXT CHECK (status IN ('start', 'end')) NOT NULL,
+    message TEXT,
+    start_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    end_time TIMESTAMP
+);
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA LOGS TO postgres;
