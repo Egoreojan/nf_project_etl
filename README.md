@@ -7,3 +7,10 @@
 ```bash
 docker compose up -d --build
 ```
+
+## Используемый стек
+
+- Docker
+- Python
+- PostgreSQL
+- Airflow
