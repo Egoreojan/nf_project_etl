@@ -24,7 +24,16 @@ class CSVReader:
             logger.warning(f"Не удалось определить кодировку автоматически: {e}")
             return None
 
-    def read(self, file_path: str, sep=';'):
+    def read(self, file_path: str, sep=';', encoding=None):
+        if encoding:
+            try:
+                df = pd.read_csv(file_path, sep=sep, encoding=encoding)
+                logger.info(f"Файл {file_path} успешно прочитан с кодировкой {encoding}")
+                return df
+            except Exception as e:
+                logger.error(f"Ошибка чтения файла {file_path} с кодировкой {encoding}: {e}")
+                raise
+
         detected_encoding = CSVReader.detect_encoding(file_path)
         if detected_encoding and detected_encoding not in self.encodings_to_try:
             self.encodings_to_try.insert(0, detected_encoding)

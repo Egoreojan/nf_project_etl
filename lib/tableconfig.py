@@ -11,6 +11,7 @@ class TableConfig:
     conflict_columns: List[str]
     clear_before_load: bool = False
     custom_transform: Optional[Callable] = None
+    encoding: Optional[str] = None
 
     def __post_init__(self):
         if not self.name or not self.file_path or not self.table_name:
