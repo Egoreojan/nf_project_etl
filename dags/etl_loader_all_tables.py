@@ -77,7 +77,8 @@ TABLE_CONFIGS = [
             'DATA_ACTUAL_END_DATE': 'standard'
         },
         conflict_columns=['data_actual_date', 'account_rk'],
-        custom_transform=clean_char_type_column
+        custom_transform=clean_char_type_column,
+        encoding='cp1251'
     ),
     
     TableConfig(

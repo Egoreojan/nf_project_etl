@@ -15,7 +15,10 @@ class TableLoader:
     def load_table(self, config: TableConfig) -> int:
         logger.info(f"Начата загрузка {config.name}")
         
-        df = self.csv_reader.read(config.file_path)
+        if hasattr(config, 'encoding') and config.encoding:
+            df = self.csv_reader.read(config.file_path, encoding=config.encoding)
+        else:
+            df = self.csv_reader.read(config.file_path)
         logger.info(f"Прочитано {len(df)} строк из {config.name}")
         
         df = Helper.transform_dataframe(df, config.date_columns)

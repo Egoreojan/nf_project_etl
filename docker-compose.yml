@@ -69,6 +69,7 @@ services:
       AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://postgres:postgres@postgres:5432/postgres
       AIRFLOW__CELERY__BROKER_URL: redis://redis:6379/0
       AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+      AIRFLOW__WEBSERVER__SHOW_TRIGGER_FORM_IF_NO_PARAMS: "true"
       AIRFLOW__WEBSERVER__SECRET_KEY: "your-secret-key-here"
       PYTHONPATH: "/opt/airflow"
     volumes:
@@ -102,6 +103,7 @@ services:
       AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://postgres:postgres@postgres:5432/postgres
       AIRFLOW__CELERY__BROKER_URL: redis://redis:6379/0
       AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+      AIRFLOW__WEBSERVER__SHOW_TRIGGER_FORM_IF_NO_PARAMS: "true"
       AIRFLOW__WEBSERVER__SECRET_KEY: "your-secret-key-here"
       PYTHONPATH: "/opt/airflow"
     volumes:
@@ -128,6 +130,7 @@ services:
       AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://postgres:postgres@postgres:5432/postgres
       AIRFLOW__CELERY__BROKER_URL: redis://redis:6379/0
       AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+      AIRFLOW__WEBSERVER__SHOW_TRIGGER_FORM_IF_NO_PARAMS: "true"
       AIRFLOW__WEBSERVER__SECRET_KEY: "your-secret-key-here"
       PYTHONPATH: "/opt/airflow"
     volumes:
