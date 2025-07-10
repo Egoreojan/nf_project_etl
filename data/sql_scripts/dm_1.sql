@@ -2,6 +2,9 @@ create or replace procedure ds.fill_account_turnover_f(IN i_OnDate date)
 language plpgsql
 as $$
 begin
+    insert into logs.etl_log (process_name, status, message)
+    values ('ds.fill_account_turnover_f', 'start', 'Расчет витрины оборотов за дату ' || i_OnDate);
+    
     delete from dm.dm_account_turnover_f where on_date = i_OnDate;
     
     insert into dm.dm_account_turnover_f (on_date, account_rk, credit_ammount, credit_amount_rub, debet_amount, debet_amount_rub)
@@ -45,6 +48,11 @@ begin
             and merd.data_actual_date <= i_OnDate 
             and (merd.data_actual_end_date is null or merd.data_actual_end_date >= i_OnDate)
         order by coalesce(c.account_rk, d.account_rk)
-    );
+    ) as subquery;
+    -- Логируем завершение расчёта
+    update logs.etl_log
+    set status = 'end', end_time = CURRENT_TIMESTAMP, message = 'Расчет витрины оборотов завершен за дату ' || i_OnDate
+    where process_name = 'ds.fill_account_turnover_f' and status = 'start'
+      and id = (select id from logs.etl_log where process_name = 'ds.fill_account_turnover_f' and status = 'start' order by start_time desc limit 1);
 end;
 $$; 
