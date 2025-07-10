@@ -2,7 +2,6 @@ import os
 
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
-from airflow.operators.trigger_dagrun import TriggerDagRunOperator
 from datetime import datetime, timedelta
 from lib.database import PostgresDB
 from dotenv import load_dotenv
@@ -47,6 +46,10 @@ with DAG(
     start_date=datetime(2024, 1, 1),
     schedule_interval=None,
     catchup=False,
+    params={
+        "start_date": "2018-01-01",
+        "end_date": "2018-01-31"
+    },
     tags=['bank', 'turnover']
 ) as dag:
     fill_turnover = PythonOperator(
