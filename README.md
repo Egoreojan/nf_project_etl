@@ -23,6 +23,7 @@ docker compose up -d --build
 - [/dags/prefill_dm_account_balance_f.py](/dags/prefill_dm_account_balance_f.py) - скрипт для предзаполнения витрины dm_account_balance
 - [/dags/fill_dm_account_balance_f.py](/dags/fill_dm_account_balance_f.py) - скрипт для заполнения витрины dm_account_balance
 - [/dags/fill_dm_account_turnover_f.py](/dags/fill_dm_account_turnover_f.py) - скрипт для заполнения витрины dm_account_turnover
+- [/dags/fill_f101_round_f.py](/dags/fill_f101_round_f.py) - скрипт для заполнения витрины 101 формы
 - [/data/sql_init/create_dm_tables.sql](/data/sql_init/create_dm_tables.sql) - создание схемы витрин dm
 - [/data/sql_init/create_ds_tables.sql](/data/sql_init/create_ds_tables.sql) - создание схемы данных ds
 - [/data/sql_init/create_logs_tables.sql](/data/sql_init/create_logs_tables.sql) - создание схемы логов logs
@@ -30,6 +31,7 @@ docker compose up -d --build
 - [/data/sql_scripts/dm_1.sql](/data/sql_init/dm_1.sql) - создание процедуры для расчета оборотов по лицевым счетам за диапазон дат
 - [/data/sql_scripts/dm_2.sql](/data/sql_init/dm_2.sql) - создание процедуры для заполнения таблицы остатков на лицевых счетах за определенную дату
 - [/data/sql_scripts/dm_3.sql](/data/sql_init/dm_3.sql) - создание процедуры для расчета остатков на лицевых счетах за диапазон дат
+- [/data/sql_scripts/dm_4.sql](/data/sql_init/dm_4.sql) - создание процедуры для расчета 101 формы
 - [/lib/csvreader.py](/lib/csvreader.py) - класс для чтения файлов csv
 - [/lib/database.py](/lib/database.py) - класс для работы с БД
 - [/lib/helper.py](/lib/helper.py) - класс с вспомогательными функциями
@@ -42,5 +44,7 @@ docker compose up -d --build
 [Ссылка на видео по заданию 1.1](https://disk.yandex.ru/i/qnzUkkgsK8BWaw)
 
 [Ссылка на видео по заданию 1.2](https://disk.yandex.ru/i/CT0jA5SyS8rNKw)
+
+[Ссылка на видео по заданию 1.3](https://disk.yandex.ru/i/MH8dxBXvtoBYRg)
 
 Простите за фоновый шум =(
