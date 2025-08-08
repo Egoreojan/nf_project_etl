@@ -53,3 +53,9 @@ docker compose up -d --build
 [Ссылка на видео по заданию 1.4](https://disk.yandex.ru/i/ZiODPjqDZaGV7g)
 
 Простите за фоновый шум =(
+
+
+*Версия со Spark
+
+Spark master - localhost:8081
+Jupyter - localhost:8888

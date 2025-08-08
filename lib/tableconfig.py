@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Callable, Dict, List, Optional
 
 
@@ -7,8 +7,8 @@ class TableConfig:
     name: str
     file_path: str
     table_name: str
-    date_columns: Dict[str, str]  # column_name: date_format
-    conflict_columns: List[str]
+    conflict_columns: List[str] = field(default_factory=list)
+    date_columns: Dict[str, str] = field(default_factory=dict)  # column_name: date_format
     clear_before_load: bool = False
     custom_transform: Optional[Callable] = None
     encoding: Optional[str] = None
